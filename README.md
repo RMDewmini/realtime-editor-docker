@@ -1,5 +1,13 @@
 # Real-Time Collaborative Code & Whiteboard Editor
 
+## Live Demo
+
+https://stream-tune-either-highways.trycloudflare.com
+
+**Note:** This is a temporary Cloudflare Tunnel URL. The application 
+is available while the server, Docker containers, and tunnel are running.
+
+
 ## Project Description
 
 A web-based collaborative application that allows multiple users to work together in real time.
