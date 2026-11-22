@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import Editor from '@monaco-editor/react';
 import './App.css';
 
-const API = 'http://localhost:5000';
+const API = import.meta.env.VITE_API_URL || window.location.origin;
 
 const socket = io(API, {
   autoConnect: false
