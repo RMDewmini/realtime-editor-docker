@@ -1,11 +1,10 @@
-
 # Real-Time Collaborative Code & Whiteboard Editor
 
 ## Project Description
 
-The Real-Time Collaborative Code & Whiteboard Editor is a web-based application that allows multiple users to collaborate in real time.
+A web-based collaborative application that allows multiple users to work together in real time.
 
-Users can write and edit code, draw on a shared whiteboard, communicate through real-time chat, and manage documents together.
+Users can write and edit code, draw on a shared whiteboard, communicate through real-time chat, and manage collaborative documents.
 
 ## Features
 
@@ -34,15 +33,22 @@ Users can write and edit code, draw on a shared whiteboard, communicate through 
 - CSS
 - Monaco Editor
 - Socket.IO Client
+- Nginx
 
 ### Backend
 - Node.js
 - Express.js
 - Socket.IO
-- MongoDB
+- MongoDB Atlas
 - Mongoose
 - JWT Authentication
 - Nodemailer
+
+### Deployment
+- Docker
+- Docker Compose
+- Docker Engine
+- Cloudflare Tunnel
 
 ## Project Structure
 
@@ -51,43 +57,34 @@ Users can write and edit code, draw on a shared whiteboard, communicate through 
     |-- client/
     |   |-- src/
     |   |-- public/
+    |   |-- Dockerfile
+    |   |-- nginx.conf
+    |   |-- .dockerignore
     |   |-- package.json
     |
     |-- server/
     |   |-- models/
     |   |-- routes/
+    |   |-- Dockerfile
+    |   |-- .dockerignore
     |   |-- server.js
     |   |-- package.json
     |
+    |-- docker-compose.yml
     |-- README.md
 
-## Installation Guide
+## Requirements
 
-### 1. Clone the Repository
-
-    git clone YOUR_GITHUB_REPOSITORY_URL
-
-### 2. Open the Project Folder
-
-    cd realtime-editor
-
-### 3. Install Backend Dependencies
-
-    cd server
-    npm install
-
-### 4. Install Frontend Dependencies
-
-Open another terminal:
-
-    cd client
-    npm install
+- Node.js and npm (for running without Docker)
+- Docker Engine
+- Docker Compose
+- MongoDB Atlas account
 
 ## Environment Variables
 
-Create a `.env` file inside the `server` folder.
+Create a `.env` file inside the `server` directory.
 
-Add the required environment variables:
+Configure the following variables:
 
     PORT=5000
     MONGO_URI=your_mongodb_connection_string
@@ -95,35 +92,82 @@ Add the required environment variables:
     EMAIL_USER=your_email@gmail.com
     EMAIL_PASS=your_gmail_app_password
 
-Replace the example values with your actual configuration.
+Use your own configuration values.
 
 Never upload your real passwords, secrets, or `.env` file to GitHub.
 
-## How to Run the Project
+## Run with Docker Compose
 
-### Start the Backend
+### 1. Clone the Repository
 
-Open a terminal:
+    git clone https://github.com/RMDewmini/realtime-editor-docker.git
+
+### 2. Open the Project Folder
+
+    cd realtime-editor-docker
+
+### 3. Configure Environment Variables
+
+Create `server/.env` and add the required environment variables.
+
+### 4. Build and Start Containers
+
+    sudo docker compose up -d --build
+
+### 5. Access the Application
+
+Frontend:
+
+    http://localhost:8080
+
+Backend:
+
+    http://localhost:5000
+
+### 6. Check Running Containers
+
+    sudo docker compose ps
+
+### 7. View Application Logs
+
+    sudo docker compose logs -f
+
+### 8. Stop the Application
+
+    sudo docker compose down
+
+## Docker Architecture
+
+- Frontend runs inside an Nginx container.
+- Backend runs inside a Node.js container.
+- Nginx reverse proxy forwards API requests and Socket.IO connections to the backend.
+- MongoDB Atlas is used as the cloud database.
+- Docker Compose manages the frontend and backend services.
+- Docker volume stores uploaded profile pictures.
+
+## Run Without Docker
+
+### Backend
 
     cd server
+    npm install
     node server.js
 
 Backend runs at:
 
     http://localhost:5000
 
-### Start the Frontend
+### Frontend
 
 Open another terminal:
 
     cd client
+    npm install
     npm run dev
 
 Frontend runs at:
 
     http://localhost:5173
-
-Open the frontend URL in your browser.
 
 ## How to Use
 
@@ -133,7 +177,7 @@ Open the frontend URL in your browser.
 4. Invite other users to collaborate.
 5. Write code together in real time.
 6. Use the whiteboard to draw and share ideas.
-7. Communicate using the real-time chat.
+7. Communicate using real-time chat.
 8. View previous versions and restore code when needed.
 
 ## Security
@@ -143,6 +187,7 @@ Open the frontend URL in your browser.
 - User access permissions.
 - Password reset through email.
 - Environment variables for sensitive configuration.
+- Environment files excluded from Docker build contexts and Git.
 
 ## Author
 
